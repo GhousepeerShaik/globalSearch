@@ -1,11 +1,11 @@
-import { LightningElement } from 'lwc';
+import { LightningElement,track } from 'lwc';
 import searchRecords from '@salesforce/apex/UniversalSearchController.searchRecords';
 
 export default class UniversalSearch extends LightningElement {
     searchTerm = '';
-    accounts = [];
-    contacts = [];
-    opportunities = [];
+    @track accounts = [];
+    @track contacts = [];
+    @track opportunities = [];
     isLoading = false;
     errorMessage = '';
     hasSearched = false;
@@ -27,7 +27,7 @@ export default class UniversalSearch extends LightningElement {
             this.errorMessage = 'Please enter at least 2 characters to search.';
             return;
         }
-
+""
         this.isLoading = true;
         this.hasSearched = false;
 
@@ -39,13 +39,17 @@ export default class UniversalSearch extends LightningElement {
                 }));
                 this.contacts = (result.contacts || []).map(c => ({
                     ...c,
-                    recordUrl: '/' + c.Id
+                    recordUrl: '/' + c.Id,
+                    accountName: (c.Account && c.Account.Name) ? c.Account.Name : '—'
+
                 }));
                 this.opportunities = (result.opportunities || []).map(o => ({
                     ...o,
                     recordUrl: '/' + o.Id
                 }));
                 this.hasSearched = true;
+                this.isLoading = false;
+
             })
             .catch((error) => {
                 this.errorMessage = 'Search failed: ' + 
