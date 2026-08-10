@@ -1,0 +1,81 @@
+<template>
+    <lightning-card title="Universal Salesforce Search" icon-name="utility:search">
+        <div class="slds-p-horizontal_medium">
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+                <div class="slds-col slds-size_8-of-12">
+                    <lightning-input
+                        label="Search"
+                        placeholder="Enter keyword (min 2 characters)"
+                        value={searchTerm}
+                        onchange={handleSearchTermChange}
+                        onkeyup={handleKeyUp}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <lightning-button
+                        variant="brand"
+                        label="Search"
+                        onclick={handleSearch}
+                        class="slds-m-top_small">
+                    </lightning-button>
+                </div>
+                <div class="slds-col slds-size_2-of-12">
+                    <lightning-button
+                        variant="neutral"
+                        label="Clear"
+                        onclick={handleClear}
+                        class="slds-m-top_small">
+                    </lightning-button>
+                </div>
+            </div>
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Searching..." size="medium"></lightning-spinner>
+            </template>
+
+            <template if:true={errorMessage}>
+                <div class="slds-text-color_error slds-m-top_medium">{errorMessage}</div>
+            </template>
+
+            <template if:true={hasSearched}>
+                <template if:false={hasResults}>
+                    <div class="slds-text-align_center slds-m-top_large slds-text-color_weak">
+                        No records found.
+                    </div>
+                </template>
+            </template>
+
+            <template if:true={hasAccounts}>
+                <h3 class="slds-text-heading_small slds-m-top_medium">Accounts ({accountCount})</h3>
+                <template for:each={accounts} for:item="acc">
+                    <div key={acc.Id} class="slds-box slds-box_x-small slds-m-vertical_x-small">
+                        <a href={acc.recordUrl} target="_blank">{acc.Name}</a>
+                        <p class="slds-text-body_small">Industry: {acc.Industry}</p>
+                    </div>
+                </template>
+            </template>
+
+            <template if:true={hasContacts}>
+                <h3 class="slds-text-heading_small slds-m-top_medium">Contacts ({contactCount})</h3>
+                <template for:each={contacts} for:item="con">
+                    <div key={con.Id} class="slds-box slds-box_x-small slds-m-vertical_x-small">
+                        <a href={con.recordUrl} target="_blank">{con.Name}</a>
+                        <p class="slds-text-body_small">Email: {con.Email}</p>
+                        <p class="slds-text-body_small">Account: {con.Account.Name}</p>
+                    </div>
+                </template>
+            </template>
+
+            <template if:true={hasOpportunities}>
+                <h3 class="slds-text-heading_small slds-m-top_medium">Opportunities ({oppCount})</h3>
+                <template for:each={opportunities} for:item="opp">
+                    <div key={opp.Id} class="slds-box slds-box_x-small slds-m-vertical_x-small">
+                        <a href={opp.recordUrl} target="_blank">{opp.Name}</a>
+                        <p class="slds-text-body_small">Stage: {opp.StageName}</p>
+                        <p class="slds-text-body_small">Amount: {opp.Amount}</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
