@@ -135,3 +135,6 @@ These are intentionally left out to keep the project achievable as a focused 2-h
 
 Built as a practice project to strengthen SOSL, Apex-to-LWC data contracts, and LWC UI state handling (loading/empty/error). Feedback and PRs welcome.
 
+<img width="617" height="532" alt="image" src="https://github.com/user-attachments/assets/ea0100f0-8457-49df-8d13-029e01b5c6fb" />
+
+
