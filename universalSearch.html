@@ -51,6 +51,7 @@
                     <div key={acc.Id} class="slds-box slds-box_x-small slds-m-vertical_x-small">
                         <a href={acc.recordUrl} target="_blank">{acc.Name}</a>
                         <p class="slds-text-body_small">Industry: {acc.Industry}</p>
+                        
                     </div>
                 </template>
             </template>
@@ -61,7 +62,8 @@
                     <div key={con.Id} class="slds-box slds-box_x-small slds-m-vertical_x-small">
                         <a href={con.recordUrl} target="_blank">{con.Name}</a>
                         <p class="slds-text-body_small">Email: {con.Email}</p>
-                        <p class="slds-text-body_small">Account: {con.Account.Name}</p>
+                       <!-- <p class="slds-text-body_small">Account: {con.Account.Name}</p> -->
+                        <p class="slds-text-body_small">Account: {con.accountName}</p>
                     </div>
                 </template>
             </template>
