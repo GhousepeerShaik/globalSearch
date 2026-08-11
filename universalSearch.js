@@ -18,6 +18,12 @@ export default class UniversalSearch extends LightningElement {
         if (event.keyCode === 13) {
             this.handleSearch();
         }
+      /*  event.keyCode is deprecated in modern JavaScript.
+You should use event.key or event.code instead for better compatibility. */
+          if (event.key === 'Enter') {
+            this.handleSearch();
+        }
+
     }
 
     handleSearch() {
@@ -27,7 +33,6 @@ export default class UniversalSearch extends LightningElement {
             this.errorMessage = 'Please enter at least 2 characters to search.';
             return;
         }
-""
         this.isLoading = true;
         this.hasSearched = false;
 
